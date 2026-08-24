@@ -1,0 +1,1 @@
+// React entrypoint (mounts <App/>).
