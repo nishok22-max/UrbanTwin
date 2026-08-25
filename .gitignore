@@ -15,11 +15,9 @@ dist/
 .vite/
 *.local
 
-# Data artifacts (prepared graphs, rasters) - keep out of git
-data/raw/*
-data/prepared/*
-!data/raw/.gitkeep
-!data/prepared/.gitkeep
+# Cache & local tooling
+cache/
+.claude/
 
 # OS / editor
 .DS_Store
