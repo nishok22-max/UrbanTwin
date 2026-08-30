@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Urban Flood Resilience Decision Support System</title>
+    <meta
+      name="description"
+      content="Decision support system for appraising flood mitigation works against a sanctioned capital budget. Consequence simulation and budget-constrained investment options for T. Nagar, Chennai. Demonstration prototype."
+    />
+    <meta name="theme-color" content="#0b2545" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      /*
+       * Apply saved accessibility preferences before first paint, so a user who
+       * has chosen larger text or high contrast never sees the page render at
+       * the default setting first. Storage access itself throws in some privacy
+       * modes, hence the guard.
+       */
+      (function () {
+        try {
+          var scale = window.localStorage.getItem('ufrdss.textScale')
+          if (scale === '0.9' || scale === '1' || scale === '1.15') {
+            document.documentElement.style.setProperty('--ui-scale', scale)
+          }
+          if (window.localStorage.getItem('ufrdss.contrast') === 'high') {
+            document.documentElement.setAttribute('data-contrast', 'high')
+          }
+        } catch (e) {
+          /* preferences unavailable — defaults apply */
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 24px; font-family: sans-serif">
+        This service requires JavaScript. Please enable it in your browser and
+        reload the page.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

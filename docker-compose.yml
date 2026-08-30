@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgis/postgis:15-3.3
+    container_name: urbantwin-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: urbantwin
+      POSTGRES_PASSWORD: urbantwin
+      POSTGRES_DB: urbantwin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U urbantwin -d urbantwin"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: urbantwin-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://urbantwin:urbantwin@postgres:5432/urbantwin
+      CORS_ORIGINS: http://localhost:5173,http://localhost:80,http://localhost:3000
+      CITY_ID: tnagar
+      RANDOM_SEED: 42
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: urbantwin-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

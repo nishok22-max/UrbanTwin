@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <title>Urban Flood Resilience Decision Support System</title>
+  <rect width="48" height="48" fill="#0b2545"/>
+  <path d="M24 8 L36 13.4 V26 C36 33.8 30.6 38.9 24 41.5 C17.4 38.9 12 33.8 12 26 V13.4 Z"
+        fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M18 28 V20.5 h3.6 V28 M23.4 28 V16.4 h4.2 V28 M29.4 28 V22 h3.6 V28"
+        fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M14 32.2 q2.6 -2 5.2 0 t5.2 0 t5.2 0 t5.2 0"
+        fill="none" stroke="#f0b429" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

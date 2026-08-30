@@ -1,1 +1,25 @@
 {# Deterministic fallback explanation template (Jinja2). Owner: R5 #}
+{#
+  Context variables:
+    rec          — Recommendation model
+    winner       — RankedScenario (rank 1)
+    runner_up    — RankedScenario (rank 2, optional)
+    budget_cr    — budget in Crore INR (float)
+    n_int        — number of interventions in winner bundle
+    risk_pct     — risk reduction percentage string (e.g. "42.3")
+    pop_k        — population protected in thousands (int)
+    cost_cr      — winner total cost in Crore INR (float)
+    mob_min      — mobility disruption in minutes (float)
+#}
+For ₹{{ budget_cr | round(1) }} crore, {{ winner.scenario_id | replace('bundle_', 'Strategy ') }} is the recommended approach.
+It deploys {{ n_int }} targeted intervention{{ 's' if n_int != 1 else '' }} at a total investment of ₹{{ cost_cr | round(1) }} Cr,
+reducing flood risk by {{ risk_pct }}% and protecting approximately {{ pop_k }}K residents from flood exposure.
+{% if mob_min is not none and mob_min > 0 %}
+Mobility impact is {{ mob_min | round(1) }} minutes of additional average travel time across the network — a manageable disruption given the flood-risk gains.
+{% else %}
+Mobility disruption is negligible across the network.
+{% endif %}
+{% if runner_up %}
+Compared to {{ runner_up.scenario_id | replace('bundle_', 'Strategy ') }}, this recommendation scores {{ ((winner.score - runner_up.score) * 100) | round(1) }}% higher on the balanced multi-objective criterion (flood risk × population protection × mobility × service availability).
+{% endif %}
+This analysis is based on the UrbanTwin physics simulation of T.Nagar's infrastructure graph ({{ rec.meta.get('graph_nodes', 'N') }} nodes, {{ rec.meta.get('graph_edges', 'N') }} edges) with {{ rec.meta.get('mc_runs', 50) }}-sample Monte Carlo uncertainty quantification.
